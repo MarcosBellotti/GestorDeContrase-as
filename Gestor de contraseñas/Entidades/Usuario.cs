@@ -33,11 +33,5 @@ namespace Entidades
             return nuevaContraseña != Contraseñas.Last();
         }
 
-
-        public string obtenerEmail()
-        {
-            return Email;
-        }
-
     }
 }

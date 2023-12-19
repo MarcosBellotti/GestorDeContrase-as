@@ -22,7 +22,7 @@ namespace Gestor_de_contraseñas
             this.encriptadora = encriptadora ?? throw new ArgumentNullException(nameof(encriptadora));
         }
 
-        public Resultado altaUsuario(string nombre, string email, string contraseña)
+        public bool altaUsuario(string nombre, string email, string contraseña)
         {
             string contaseñaEncriptada = encriptadora.Encrypt(contraseña); 
 
@@ -30,7 +30,32 @@ namespace Gestor_de_contraseñas
 
             serializadora.altaUsuario(usuario);
 
-            return Resultado.Carga_exitosa;
+            return true;
+        }
+
+        public List<string> contraseñaUsuario(string nombre, string contraseña)
+        {
+            contraseña = encriptadora.Encrypt(contraseña);
+
+            try
+            {
+                Usuario usuario = serializadora.obtenerUsuarios().First(x => x.Nombre == nombre && x.Contraseñas.Last() == contraseña);
+
+                List<string> contraseñas = new List<string>();
+
+                foreach (string contra in usuario.Contraseñas)
+                {
+                    string contraDesencriptada = encriptadora.Decrypt(contra);
+                    contraseñas.Add(contraDesencriptada);
+                }
+
+                return contraseñas;
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine("El usuario no existe porque los datos ingresados no son correctos: " + ex.Message);
+                return new List<string>();
+            }
         }
 
     }
@@ -48,7 +73,7 @@ namespace Gestor_de_contraseñas
         {
             foreach (Usuario usuario in serializadora.obtenerUsuarios())
             {
-                if (usuario.obtenerEmail() == email)
+                if (usuario.Email == email)
                     return true;
             }
             return false;
@@ -101,7 +126,6 @@ namespace Gestor_de_contraseñas
 
             string jsonUsuariosActualizados = JsonSerializer.Serialize(usuarios);
 
-            // Ruta del archivo
             string path = "D:\\Documentos\\usuarios.json";
 
             File.WriteAllText(path, jsonUsuariosActualizados);
@@ -111,7 +135,6 @@ namespace Gestor_de_contraseñas
 
         public List<Usuario> obtenerUsuarios()
         {
-            // Ruta del archivo
             string path = "D:\\Documentos\\usuarios.json";
 
             try
@@ -122,10 +145,8 @@ namespace Gestor_de_contraseñas
                     return new List<Usuario>();
                 }
 
-                // Leer el contenido actual del archivo JSON
                 string contenidoActual = File.ReadAllText(path, Encoding.UTF8);
 
-                // Deserializar JSON a objetos de usuario
                 List<Usuario> usuariosActuales = string.IsNullOrWhiteSpace(contenidoActual)
                     ? new List<Usuario>()
                     : JsonSerializer.Deserialize<List<Usuario>>(contenidoActual);
@@ -134,12 +155,10 @@ namespace Gestor_de_contraseñas
             }
             catch (JsonException ex)
             {
-                // Manejar la excepción cuando el contenido no es un JSON válido
                 return new List<Usuario>();
             }
             catch (Exception ex)
             {
-                // Manejar otras excepciones que puedan ocurrir durante el proceso
                 return new List<Usuario>();
             }
         }
@@ -153,7 +172,6 @@ namespace Gestor_de_contraseñas
 
             byte[] data = UTF8Encoding.UTF8.GetBytes(contraseña);
 
-            //instancio un objeto MD5
             MD5 md5 = MD5.Create();
 
             TripleDES tripledes = TripleDES.Create();
@@ -174,7 +192,6 @@ namespace Gestor_de_contraseñas
 
             byte[] data = Convert.FromBase64String(contraseñaEncriptada);
 
-            //instancio un objeto MD5
             MD5 md5 = MD5.Create();
 
             TripleDES tripledes = TripleDES.Create();

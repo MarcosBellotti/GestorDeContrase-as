@@ -36,6 +36,7 @@ namespace Interfaz_grafica
         public void llenarLaGrilla()
         {
             dtgDatosUsuarios.DataSource = serializadora.obtenerUsuarios();
+            dtgDatosUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         private void btnCargar_Click(object sender, EventArgs e)
@@ -73,7 +74,32 @@ namespace Interfaz_grafica
         {
             string nombre = txtNombreHistorial.Text;
             string contraseña = txtContraseñaHistorial.Text;
+
             dtgDatosUsuarios.DataSource = ObtenerHistorial(nombre, contraseña);
+            dtgDatosUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+            txtNombreHistorial.Text = "";
+            txtContraseñaHistorial.Text = "";
+        }
+
+        private void btnActualizarContraseña_Click(object sender, EventArgs e)
+        {
+            string nombre = txtNombreContraseña.Text;
+            string contraseña = txtContraseñaContraseña.Text;
+            string nuevaContraseña = txtNuevaContraseña.Text;
+            controller.cambiarContraseña(nombre, contraseña, nuevaContraseña);
+
+            llenarLaGrilla();
+
+            txtNombreContraseña.Text = "";
+            txtContraseñaContraseña.Text = "";
+            txtNuevaContraseña.Text = "";
+
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            llenarLaGrilla();
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Gestor_de_contraseñas
             return true;
         }
 
-        public List<string> contraseñaUsuario(string nombre, string contraseña)
+        public List<string> contraseñasDelUsuario(string nombre, string contraseña)
         {
             contraseña = encriptadora.Encrypt(contraseña);
 
@@ -53,8 +53,25 @@ namespace Gestor_de_contraseñas
             }
             catch (InvalidOperationException ex)
             {
-                Console.WriteLine("El usuario no existe porque los datos ingresados no son correctos: " + ex.Message);
-                return new List<string>();
+                throw new Exception("Usuario no encontrado.", ex);
+            }
+        }
+
+        public void cambiarContraseña(string nombre, string contraseña, string contraseñaNueva)
+        {
+            contraseña = encriptadora.Encrypt(contraseña);
+
+            try
+            {
+                Usuario usuario = serializadora.obtenerUsuarios().First(x => x.Nombre == nombre && x.Contraseñas.Last() == contraseña);
+                string contraseñaNuevaEncriptada = encriptadora.Encrypt(contraseñaNueva);
+                usuario.modificarContraseña(contraseñaNuevaEncriptada);
+
+                serializadora.altaUsuario(usuario);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new Exception("Usuario no encontrado.", ex);
             }
         }
 
@@ -122,6 +139,9 @@ namespace Gestor_de_contraseñas
         {
             List<Usuario> usuarios = obtenerUsuarios();
 
+            if (usuarios.Find(x => x.Nombre == usuario.Nombre) != null)
+                usuarios.Remove(usuarios.Find(x => x.Nombre == usuario.Nombre));
+
             usuarios.Add(usuario);
 
             string jsonUsuariosActualizados = JsonSerializer.Serialize(usuarios);
@@ -184,8 +204,6 @@ namespace Gestor_de_contraseñas
 
             return Convert.ToBase64String(contraseñaEncriptada);
         }
-
-
         public string Decrypt(string contraseñaEncriptada)
         {
             string hash = "coding";

@@ -116,17 +116,24 @@ while (continuar == "s")
                     }
                     else
                     {
-                        List<string> contraseñasObtenidas = controller.contraseñaUsuario(nombre, contraseña);
-
-                        Console.WriteLine("La/s contraseña/s es/son: \n");
-                        foreach(string contraseñita in contraseñasObtenidas)
+                        try
                         {
-                            Console.WriteLine(contraseñita);
+                            List<string> contraseñasObtenidas = controller.contraseñasDelUsuario(nombre, contraseña);
+
+                            Console.WriteLine("La/s contraseña/s es/son: \n");
+                            foreach (string contraseñita in contraseñasObtenidas)
+                            {
+                                Console.WriteLine(contraseñita);
+                            }
+
+                            Thread.Sleep(5000);
+                            Console.Clear();
+                            break;
                         }
-                    
-                        Thread.Sleep(5000);
-                        Console.Clear();
-                        break;
+                        catch(Exception ex)
+                        {
+                            Console.WriteLine("Error al obtener las contraseñas porque los datos estan mal ingresados: " + ex.Message);
+                        }
                     }
                 } while (true);
         }
@@ -134,11 +141,56 @@ while (continuar == "s")
 
         case Accion.Cambiar_Contraseña: 
         {
-                
-        }
+                do
+                {
+                    Console.WriteLine("Ingrese un nombre de usuario para cambiar la contraseña:");
+                    string nombre = Console.ReadLine();
+
+                    Console.WriteLine("Ingrese tambien la contraseña actual:");
+                    string contraseña = Console.ReadLine();
+
+                    string contraseñaNueva = "";
+                    do
+                    {
+                        Console.WriteLine("Contraseña: ");
+                        contraseñaNueva = Console.ReadLine();
+
+                        if (!validadora.validarContraseña(contraseñaNueva))
+                        {
+                            Console.WriteLine("ERROR! \n Repete el formato de contraseña: \n 8 carcateres," +
+                                " mayusculas, minusculas y caracteres especiales (+ , . - )");
+                            Thread.Sleep(5000);
+                        }
+                        else
+                            break;
+
+                        Console.Clear();
+
+                    } while (true);
+
+                    if (!validadora.validarNombre(nombre))
+                    {
+                        Console.WriteLine("ERROR! \nEl nombre no existe");
+                        Thread.Sleep(5000);
+                        Console.Clear();
+                    }
+                    else
+                    {
+                        try
+                        {
+                            controller.cambiarContraseña(nombre, contraseña, contraseñaNueva);
+
+                            Console.Clear();
+                            break;
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Error al obtener las contraseñas porque los datos estan mal ingresados: " + ex.Message);
+                        }
+                    }
+                } while (true);
+            }
         break;
-
-
 
     }
 

@@ -51,6 +51,11 @@
             txtNuevaContraseña = new TextBox();
             btnActualizarContraseña = new Button();
             btnLimpiar = new Button();
+            btnVerContraseña = new Button();
+            btnVerContraseñaContraseña = new Button();
+            btnVerContraseñaC = new Button();
+            btnVerContraseñaCC = new Button();
+            label11 = new Label();
             ((System.ComponentModel.ISupportInitialize)dtgDatosUsuarios).BeginInit();
             SuspendLayout();
             // 
@@ -62,7 +67,6 @@
             label1.Size = new Size(57, 15);
             label1.TabIndex = 0;
             label1.Text = "Nombre: ";
-            label1.Click += label1_Click;
             // 
             // label2
             // 
@@ -73,7 +77,6 @@
             label2.Size = new Size(193, 21);
             label2.TabIndex = 1;
             label2.Text = "Historial de contraseñas";
-            label2.Click += label2_Click;
             // 
             // label3
             // 
@@ -127,12 +130,12 @@
             dtgDatosUsuarios.Location = new Point(27, 299);
             dtgDatosUsuarios.Name = "dtgDatosUsuarios";
             dtgDatosUsuarios.RowTemplate.Height = 25;
-            dtgDatosUsuarios.Size = new Size(983, 127);
+            dtgDatosUsuarios.Size = new Size(1062, 127);
             dtgDatosUsuarios.TabIndex = 8;
             // 
             // btnHistorial
             // 
-            btnHistorial.Location = new Point(415, 149);
+            btnHistorial.Location = new Point(603, 141);
             btnHistorial.Name = "btnHistorial";
             btnHistorial.Size = new Size(75, 23);
             btnHistorial.TabIndex = 9;
@@ -188,7 +191,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(732, 64);
+            label7.Location = new Point(753, 64);
             label7.Name = "label7";
             label7.Size = new Size(54, 15);
             label7.TabIndex = 11;
@@ -197,7 +200,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(732, 100);
+            label9.Location = new Point(753, 100);
             label9.Name = "label9";
             label9.Size = new Size(70, 15);
             label9.TabIndex = 12;
@@ -206,7 +209,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(732, 133);
+            label10.Location = new Point(753, 133);
             label10.Name = "label10";
             label10.Size = new Size(105, 15);
             label10.TabIndex = 13;
@@ -214,28 +217,28 @@
             // 
             // txtNombreContraseña
             // 
-            txtNombreContraseña.Location = new Point(792, 61);
+            txtNombreContraseña.Location = new Point(813, 61);
             txtNombreContraseña.Name = "txtNombreContraseña";
             txtNombreContraseña.Size = new Size(218, 23);
             txtNombreContraseña.TabIndex = 5;
             // 
             // txtContraseñaContraseña
             // 
-            txtContraseñaContraseña.Location = new Point(808, 97);
+            txtContraseñaContraseña.Location = new Point(829, 97);
             txtContraseñaContraseña.Name = "txtContraseñaContraseña";
             txtContraseñaContraseña.Size = new Size(202, 23);
             txtContraseñaContraseña.TabIndex = 6;
             // 
             // txtNuevaContraseña
             // 
-            txtNuevaContraseña.Location = new Point(843, 130);
+            txtNuevaContraseña.Location = new Point(864, 130);
             txtNuevaContraseña.Name = "txtNuevaContraseña";
             txtNuevaContraseña.Size = new Size(167, 23);
             txtNuevaContraseña.TabIndex = 7;
             // 
             // btnActualizarContraseña
             // 
-            btnActualizarContraseña.Location = new Point(732, 171);
+            btnActualizarContraseña.Location = new Point(753, 170);
             btnActualizarContraseña.Name = "btnActualizarContraseña";
             btnActualizarContraseña.Size = new Size(75, 23);
             btnActualizarContraseña.TabIndex = 18;
@@ -253,11 +256,67 @@
             btnLimpiar.UseVisualStyleBackColor = true;
             btnLimpiar.Click += btnLimpiar_Click;
             // 
+            // btnVerContraseña
+            // 
+            btnVerContraseña.Location = new Point(357, 146);
+            btnVerContraseña.Name = "btnVerContraseña";
+            btnVerContraseña.Size = new Size(54, 23);
+            btnVerContraseña.TabIndex = 20;
+            btnVerContraseña.Text = "Ver";
+            btnVerContraseña.UseVisualStyleBackColor = true;
+            btnVerContraseña.Click += button1_Click;
+            // 
+            // btnVerContraseñaContraseña
+            // 
+            btnVerContraseñaContraseña.Location = new Point(684, 97);
+            btnVerContraseñaContraseña.Name = "btnVerContraseñaContraseña";
+            btnVerContraseñaContraseña.Size = new Size(63, 23);
+            btnVerContraseñaContraseña.TabIndex = 21;
+            btnVerContraseñaContraseña.Text = "Ver";
+            btnVerContraseñaContraseña.UseVisualStyleBackColor = true;
+            btnVerContraseñaContraseña.Click += btnVerContraseñaContraseña_Click;
+            // 
+            // btnVerContraseñaC
+            // 
+            btnVerContraseñaC.Location = new Point(1037, 98);
+            btnVerContraseñaC.Name = "btnVerContraseñaC";
+            btnVerContraseñaC.Size = new Size(52, 23);
+            btnVerContraseñaC.TabIndex = 22;
+            btnVerContraseñaC.Text = "Ver";
+            btnVerContraseñaC.UseVisualStyleBackColor = true;
+            btnVerContraseñaC.Click += btnVerContraseñaC_Click;
+            // 
+            // btnVerContraseñaCC
+            // 
+            btnVerContraseñaCC.Location = new Point(1037, 130);
+            btnVerContraseñaCC.Name = "btnVerContraseñaCC";
+            btnVerContraseñaCC.Size = new Size(52, 23);
+            btnVerContraseñaCC.TabIndex = 23;
+            btnVerContraseñaCC.Text = "Ver";
+            btnVerContraseñaCC.UseVisualStyleBackColor = true;
+            btnVerContraseñaCC.Click += btnVerContraseñaCC_Click;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label11.Location = new Point(753, 23);
+            label11.Name = "label11";
+            label11.Size = new Size(175, 21);
+            label11.TabIndex = 24;
+            label11.Text = "Actualizar contraseña";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1029, 465);
+            BackColor = SystemColors.ActiveBorder;
+            ClientSize = new Size(1118, 465);
+            Controls.Add(label11);
+            Controls.Add(btnVerContraseñaCC);
+            Controls.Add(btnVerContraseñaC);
+            Controls.Add(btnVerContraseñaContraseña);
+            Controls.Add(btnVerContraseña);
             Controls.Add(btnLimpiar);
             Controls.Add(btnActualizarContraseña);
             Controls.Add(txtNuevaContraseña);
@@ -313,5 +372,10 @@
         private TextBox txtNuevaContraseña;
         private Button btnActualizarContraseña;
         private Button btnLimpiar;
+        private Button btnVerContraseña;
+        private Button btnVerContraseñaContraseña;
+        private Button btnVerContraseñaC;
+        private Button btnVerContraseñaCC;
+        private Label label11;
     }
 }

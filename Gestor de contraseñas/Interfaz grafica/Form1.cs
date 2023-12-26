@@ -20,6 +20,10 @@ namespace Interfaz_grafica
 
             this.controller = new Controller(validadora, serializadora, encriptadora);
 
+            txtNombreUsuarioCarga.KeyPress += validarLetra_KeyPress;
+            txtNombreHistorial.KeyPress += validarLetra_KeyPress;
+            txtNombreContraseña.KeyPress += validarLetra_KeyPress;
+
             llenarLaGrilla();
         }
 
@@ -87,19 +91,37 @@ namespace Interfaz_grafica
             string nombre = txtNombreContraseña.Text;
             string contraseña = txtContraseñaContraseña.Text;
             string nuevaContraseña = txtNuevaContraseña.Text;
-            controller.cambiarContraseña(nombre, contraseña, nuevaContraseña);
 
-            llenarLaGrilla();
+            if(!validadora.validarContraseña(nuevaContraseña))
+            {
+                MessageBox.Show("Ingrese la contraseña correcta!\nDebe contener mayusculas, minusculas y, al menos, un caracter especial (+, -, *, _)");
+            }
+            else
+            {
+                controller.cambiarContraseña(nombre, contraseña, nuevaContraseña);
 
-            txtNombreContraseña.Text = "";
-            txtContraseñaContraseña.Text = "";
-            txtNuevaContraseña.Text = "";
+                llenarLaGrilla();
+
+                txtNombreContraseña.Text = "";
+                txtContraseñaContraseña.Text = "";
+                txtNuevaContraseña.Text = "";
+            } 
 
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             llenarLaGrilla();
+        }
+
+
+        //Valido que en todos los lugares que vaya un nombre, se escriban solo letras
+        private void validarLetra_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true;
+            }
         }
     }
 }
